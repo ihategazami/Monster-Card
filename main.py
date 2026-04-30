@@ -11,8 +11,11 @@ STATS = ["strength", "speed", "stealth", "cunning"]
 # Catalogue setup and formatting
 # -----------------------------------------------------------------------------
 def create_catalogue():
-    """Placeholder before the catalogue dictionary was developed."""
-    return {}
+    """Create a small test catalogue while the data structure is being developed."""
+    return {
+        "Stoneling": {"strength": 7, "speed": 1, "stealth": 25, "cunning": 15},
+        "Vexscream": {"strength": 1, "speed": 6, "stealth": 21, "cunning": 19}
+    }
 
 # -----------------------------------------------------------------------------
 # Main features
@@ -38,6 +41,7 @@ def print_catalogue(catalogue):
 # -----------------------------------------------------------------------------
 def main():
     catalogue = create_catalogue()
+    eg.msgbox("Welcome to the Monster Card Catalogue.", "Welcome")
     eg.msgbox("Starting version complete.", "Development Version")
 
 if __name__ == "__main__":
