@@ -7,10 +7,10 @@ MIN_STAT = 1
 MAX_STAT = 25
 STATS = ["strength", "speed", "stealth", "cunning"]
 
-ADD_OPTION = 'Add new monster card'
-SEARCH_OPTION = 'Search / edit monster card'
-DELETE_OPTION = 'Delete monster card'
-PRINT_OPTION = 'Print full catalogue'
+ADD_OPTION = 'Add'
+SEARCH_OPTION = 'Search / edit'
+DELETE_OPTION = 'Delete'
+PRINT_OPTION = 'Print'
 EXIT_OPTION = 'Exit'
 MAIN_MENU = [ADD_OPTION, SEARCH_OPTION, DELETE_OPTION, PRINT_OPTION, EXIT_OPTION]
 
