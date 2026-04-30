@@ -7,6 +7,13 @@ MIN_STAT = 1
 MAX_STAT = 25
 STATS = ["strength", "speed", "stealth", "cunning"]
 
+ADD_OPTION = 'Add new monster card'
+SEARCH_OPTION = 'Search / edit monster card'
+DELETE_OPTION = 'Delete monster card'
+PRINT_OPTION = 'Print full catalogue'
+EXIT_OPTION = 'Exit'
+MAIN_MENU = [ADD_OPTION, SEARCH_OPTION, DELETE_OPTION, PRINT_OPTION, EXIT_OPTION]
+
 # -----------------------------------------------------------------------------
 # Catalogue setup and formatting
 # -----------------------------------------------------------------------------
@@ -44,13 +51,21 @@ def print_catalogue(catalogue):
     """Placeholder before Print Full Catalogue was developed."""
     eg.msgbox("Print full catalogue has not been developed yet.", "Not Developed")
 
+def show_main_menu():
+    """Show the main menu and return the user selection."""
+    return eg.buttonbox("Choose an option:", "Monster Card Catalogue", MAIN_MENU)
+
 # -----------------------------------------------------------------------------
 # Main loop
 # -----------------------------------------------------------------------------
 def main():
     catalogue = create_catalogue()
     eg.msgbox("Welcome to the Monster Card Catalogue.", "Welcome")
-    eg.msgbox("Starting version complete.", "Development Version")
+    while True:
+        choice = show_main_menu()
+        eg.msgbox(f"You chose: {choice}", "Menu Choice")
+        if choice == EXIT_OPTION:
+            break
 
 if __name__ == "__main__":
     main()
