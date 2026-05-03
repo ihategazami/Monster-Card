@@ -44,6 +44,16 @@ def find_card(catalogue, name):
             return card_name
     return None
 
+def format_card(card_name, card_stats):
+    """Format one monster card for a GUI message."""
+    return (
+        f"Name: {card_name}\n"
+        f"Strength: {card_stats['strength']}\n"
+        f"Speed: {card_stats['speed']}\n"
+        f"Stealth: {card_stats['stealth']}\n"
+        f"Cunning: {card_stats['cunning']}"
+    )
+
 # -----------------------------------------------------------------------------
 # Validation functions
 # -----------------------------------------------------------------------------
@@ -104,15 +114,17 @@ def get_all_stats():
 # Main features
 # -----------------------------------------------------------------------------
 def add_card(catalogue):
-    """Add version that collects the name and all four stats."""
+    """Add version that temporarily stores and confirms new card details."""
     card_name = get_valid_name(catalogue)
     if card_name is None:
         return
     card_stats = get_all_stats()
     if card_stats is None:
         return
-    catalogue[card_name] = card_stats
-    eg.msgbox("Card added successfully.", "Card Added")
+    choice = eg.buttonbox(format_card(card_name, card_stats) + "\n\nAre these details correct?", "Confirm New Card", ["Save card", "Cancel"])
+    if choice == "Save card":
+        catalogue[card_name] = card_stats
+        eg.msgbox("Card added successfully.", "Card Added")
 
 def search_edit_card(catalogue):
     """Placeholder before Search/Edit was developed."""
