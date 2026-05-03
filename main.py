@@ -36,26 +36,43 @@ def clean_name(name):
     """Clean spacing and capitalisation in a monster name."""
     return " ".join(name.strip().split()).title()
 
+def find_card(catalogue, name):
+    """Find a card without caring about uppercase/lowercase."""
+    name = name.lower()
+    for card_name in catalogue:
+        if card_name.lower() == name:
+            return card_name
+    return None
+
 # -----------------------------------------------------------------------------
 # Validation functions
 # -----------------------------------------------------------------------------
 def get_valid_name(catalogue, old_name=None):
     """Ask the user for a monster name and validate it as development progressed."""
-    name = eg.enterbox("Enter the monster name:", "Monster Name")
-    if name is None:
-        return None
-    return clean_name(name)
+    while True:
+        name = eg.enterbox('Enter the monster name:', "Monster Name")
+        if name is None:
+            return None
+        name = clean_name(name)
+        if name == "":
+            eg.msgbox("Name cannot be blank.", "Invalid Name")
+            continue
+        existing_card = find_card(catalogue, name)
+        if existing_card is not None and existing_card != old_name:
+            eg.msgbox("That monster card already exists.", "Duplicate Name")
+            continue
+        return name
 
 # -----------------------------------------------------------------------------
 # Main features
 # -----------------------------------------------------------------------------
 def add_card(catalogue):
-    """Early add version: asks for the name only and saves default stats."""
+    """Add version with name validation but temporary default stats."""
     card_name = get_valid_name(catalogue)
     if card_name is None:
         return
     catalogue[card_name] = {"strength": 1, "speed": 1, "stealth": 1, "cunning": 1}
-    eg.msgbox("Name added with temporary default stats.", "Card Added")
+    eg.msgbox("Card added with temporary default stats.", "Card Added")
 
 def search_edit_card(catalogue):
     """Placeholder before Search/Edit was developed."""
