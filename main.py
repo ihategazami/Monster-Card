@@ -32,12 +32,30 @@ def create_catalogue():
         "Wispghoul": {"strength": 17, "speed": 19, "stealth": 3, "cunning": 2}
     }
 
+def clean_name(name):
+    """Clean spacing and capitalisation in a monster name."""
+    return " ".join(name.strip().split()).title()
+
+# -----------------------------------------------------------------------------
+# Validation functions
+# -----------------------------------------------------------------------------
+def get_valid_name(catalogue, old_name=None):
+    """Ask the user for a monster name and validate it as development progressed."""
+    name = eg.enterbox("Enter the monster name:", "Monster Name")
+    if name is None:
+        return None
+    return clean_name(name)
+
 # -----------------------------------------------------------------------------
 # Main features
 # -----------------------------------------------------------------------------
 def add_card(catalogue):
-    """Placeholder before Add New Monster Card was developed."""
-    eg.msgbox("Add new monster card has not been developed yet.", "Not Developed")
+    """Early add version: asks for the name only and saves default stats."""
+    card_name = get_valid_name(catalogue)
+    if card_name is None:
+        return
+    catalogue[card_name] = {"strength": 1, "speed": 1, "stealth": 1, "cunning": 1}
+    eg.msgbox("Name added with temporary default stats.", "Card Added")
 
 def search_edit_card(catalogue):
     """Placeholder before Search/Edit was developed."""
