@@ -63,16 +63,40 @@ def get_valid_name(catalogue, old_name=None):
             continue
         return name
 
+def get_stat_basic(stat_name):
+    """Early version: ask for a stat and convert it with limited checking."""
+    value = eg.enterbox(f"Enter {stat_name}:", f"Enter {stat_name.title()}")
+    if value is None or value.strip() == "":
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        eg.msgbox("This early version only accepts whole numbers.", "Invalid Input")
+        return None
+
+def get_all_stats():
+    """Ask the user for strength, speed, stealth and cunning."""
+    stats = {}
+    for stat_name in STATS:
+        value = get_stat_basic(stat_name)
+        if value is None:
+            return None
+        stats[stat_name] = value
+    return stats
+
 # -----------------------------------------------------------------------------
 # Main features
 # -----------------------------------------------------------------------------
 def add_card(catalogue):
-    """Add version with name validation but temporary default stats."""
+    """Add version that collects the name and all four stats."""
     card_name = get_valid_name(catalogue)
     if card_name is None:
         return
-    catalogue[card_name] = {"strength": 1, "speed": 1, "stealth": 1, "cunning": 1}
-    eg.msgbox("Card added with temporary default stats.", "Card Added")
+    card_stats = get_all_stats()
+    if card_stats is None:
+        return
+    catalogue[card_name] = card_stats
+    eg.msgbox("Card added successfully.", "Card Added")
 
 def search_edit_card(catalogue):
     """Placeholder before Search/Edit was developed."""
