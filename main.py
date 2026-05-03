@@ -63,22 +63,38 @@ def get_valid_name(catalogue, old_name=None):
             continue
         return name
 
-def get_stat_basic(stat_name):
-    """Early version: ask for a stat and convert it with limited checking."""
-    value = eg.enterbox(f"Enter {stat_name}:", f"Enter {stat_name.title()}")
-    if value is None or value.strip() == "":
-        return None
-    try:
-        return int(value)
-    except ValueError:
-        eg.msgbox("This early version only accepts whole numbers.", "Invalid Input")
-        return None
+def get_valid_stat(stat_name, current_value=None):
+    """Ask for a stat and validate blank, integer and range errors."""
+    while True:
+        default = ""
+        if current_value is not None:
+            default = str(current_value)
+        value = eg.enterbox(
+            f"Enter {stat_name}.\nIt must be a whole number from {MIN_STAT} to {MAX_STAT}.",
+            f"Enter {stat_name.title()}",
+            default=default
+        )
+        if value is None:
+            return None
+        value = value.strip()
+        if value == "":
+            eg.msgbox("Value cannot be blank.", "Invalid Input")
+            continue
+        try:
+            value = int(value)
+        except ValueError:
+            eg.msgbox("Value must be a whole number.", "Invalid Input")
+            continue
+        if value < MIN_STAT or value > MAX_STAT:
+            eg.msgbox(f"Value must be from {MIN_STAT} to {MAX_STAT}.", "Invalid Input")
+            continue
+        return value
 
 def get_all_stats():
     """Ask the user for strength, speed, stealth and cunning."""
     stats = {}
     for stat_name in STATS:
-        value = get_stat_basic(stat_name)
+        value = get_valid_stat(stat_name)
         if value is None:
             return None
         stats[stat_name] = value
