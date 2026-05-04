@@ -13,6 +13,14 @@ DELETE_OPTION = 'Delete monster card'
 PRINT_OPTION = 'Print full catalogue'
 EXIT_OPTION = 'Exit'
 MAIN_MENU = [ADD_OPTION, SEARCH_OPTION, DELETE_OPTION, PRINT_OPTION, EXIT_OPTION]
+EDIT_MENU = [
+    "Edit name",
+    "Edit strength",
+    "Edit speed",
+    "Edit stealth",
+    "Edit cunning",
+    "Finish editing"
+]
 
 # -----------------------------------------------------------------------------
 # Catalogue setup and formatting
@@ -113,18 +121,44 @@ def get_all_stats():
 # -----------------------------------------------------------------------------
 # Main features
 # -----------------------------------------------------------------------------
+def edit_card(catalogue, card_name):
+    """Edit a card. Earlier versions only edited the name; later versions edit stats too."""
+    while True:
+        choice = eg.buttonbox(format_card(card_name, catalogue[card_name]), "Edit Card", EDIT_MENU)
+        if choice is None or choice == "Finish editing":
+            return card_name
+        if choice == "Edit name":
+            new_name = get_valid_name(catalogue, old_name=card_name)
+            if new_name is not None:
+                catalogue[new_name] = catalogue.pop(card_name)
+                card_name = new_name
+        else:
+            stat_name = choice.replace("Edit ", "")
+            new_value = get_valid_stat(stat_name, catalogue[card_name][stat_name])
+            if new_value is not None:
+                catalogue[card_name][stat_name] = new_value
+
 def add_card(catalogue):
-    """Add version that temporarily stores and confirms new card details."""
+    """Complete add version with confirmation and edit-before-save option."""
     card_name = get_valid_name(catalogue)
     if card_name is None:
         return
     card_stats = get_all_stats()
     if card_stats is None:
         return
-    choice = eg.buttonbox(format_card(card_name, card_stats) + "\n\nAre these details correct?", "Confirm New Card", ["Save card", "Cancel"])
-    if choice == "Save card":
-        catalogue[card_name] = card_stats
-        eg.msgbox("Card added successfully.", "Card Added")
+    while True:
+        choice = eg.buttonbox(format_card(card_name, card_stats) + "\n\nAre these details correct?", "Confirm New Card", ["Save card", "Edit details", "Cancel"])
+        if choice == "Save card":
+            catalogue[card_name] = card_stats
+            eg.msgbox("Card added successfully.", "Card Added")
+            return
+        if choice == "Edit details":
+            temp_catalogue = catalogue.copy()
+            temp_catalogue[card_name] = card_stats
+            card_name = edit_card(temp_catalogue, card_name)
+            card_stats = temp_catalogue[card_name]
+            continue
+        return
 
 def search_edit_card(catalogue):
     """Placeholder before Search/Edit was developed."""
