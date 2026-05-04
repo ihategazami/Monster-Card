@@ -118,6 +118,13 @@ def get_all_stats():
         stats[stat_name] = value
     return stats
 
+def get_existing_card(catalogue):
+    """Let the user choose an existing monster card."""
+    if len(catalogue) == 0:
+        eg.msgbox("There are no monster cards in the catalogue.", "Empty Catalogue")
+        return None
+    return eg.choicebox("Choose a monster card:", "Select Monster Card", sorted(catalogue.keys()))
+
 # -----------------------------------------------------------------------------
 # Main features
 # -----------------------------------------------------------------------------
@@ -161,8 +168,10 @@ def add_card(catalogue):
         return
 
 def search_edit_card(catalogue):
-    """Placeholder before Search/Edit was developed."""
-    eg.msgbox("Search / edit monster card has not been developed yet.", "Not Developed")
+    """Early search version: user can select a card from the catalogue."""
+    card_name = get_existing_card(catalogue)
+    if card_name is not None:
+        eg.msgbox(f"You selected {card_name}.", "Selected Card")
 
 def delete_card(catalogue):
     """Placeholder before Delete was developed."""
