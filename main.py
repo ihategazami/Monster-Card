@@ -177,8 +177,13 @@ def search_edit_card(catalogue):
         edit_card(catalogue, card_name)
 
 def delete_card(catalogue):
-    """Placeholder before Delete was developed."""
-    eg.msgbox("Delete monster card has not been developed yet.", "Not Developed")
+    """Delete version: select and confirm deletion."""
+    card_name = get_existing_card(catalogue)
+    if card_name is None:
+        return
+    choice = eg.buttonbox(format_card(card_name, catalogue[card_name]) + "\n\nDelete this card?", "Delete Card", ["Delete", "Cancel"])
+    if choice == "Delete":
+        catalogue.pop(card_name)
 
 def print_catalogue(catalogue):
     """Placeholder before Print Full Catalogue was developed."""
@@ -213,4 +218,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
