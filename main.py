@@ -168,11 +168,13 @@ def add_card(catalogue):
         return
 
 def search_edit_card(catalogue):
-    """Search version: select and view card details."""
+    """Search/edit version: select a card and optionally edit it."""
     card_name = get_existing_card(catalogue)
     if card_name is None:
         return
-    eg.buttonbox(format_card(card_name, catalogue[card_name]) + "\n\nDo you want to edit this card?", "Search / Edit Card", ["Back to menu"])
+    choice = eg.buttonbox(format_card(card_name, catalogue[card_name]) + "\n\nDo you want to edit this card?", "Search / Edit Card", ["Edit", "Back to menu"])
+    if choice == "Edit":
+        edit_card(catalogue, card_name)
 
 def delete_card(catalogue):
     """Placeholder before Delete was developed."""
