@@ -168,10 +168,11 @@ def add_card(catalogue):
         return
 
 def search_edit_card(catalogue):
-    """Early search version: user can select a card from the catalogue."""
+    """Search version: select and view card details."""
     card_name = get_existing_card(catalogue)
-    if card_name is not None:
-        eg.msgbox(f"You selected {card_name}.", "Selected Card")
+    if card_name is None:
+        return
+    eg.buttonbox(format_card(card_name, catalogue[card_name]) + "\n\nDo you want to edit this card?", "Search / Edit Card", ["Back to menu"])
 
 def delete_card(catalogue):
     """Placeholder before Delete was developed."""
