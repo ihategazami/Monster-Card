@@ -177,13 +177,14 @@ def search_edit_card(catalogue):
         edit_card(catalogue, card_name)
 
 def delete_card(catalogue):
-    """Delete version: select and confirm deletion."""
+    """Complete delete version with confirmation and success message."""
     card_name = get_existing_card(catalogue)
     if card_name is None:
         return
     choice = eg.buttonbox(format_card(card_name, catalogue[card_name]) + "\n\nDelete this card?", "Delete Card", ["Delete", "Cancel"])
     if choice == "Delete":
         catalogue.pop(card_name)
+        eg.msgbox("Card deleted successfully.", "Card Deleted")
 
 def print_catalogue(catalogue):
     """Placeholder before Print Full Catalogue was developed."""
