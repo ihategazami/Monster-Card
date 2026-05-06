@@ -62,6 +62,29 @@ def format_card(card_name, card_stats):
         f"Cunning: {card_stats['cunning']}"
     )
 
+def format_catalogue(catalogue):
+    """Format the catalogue alphabetically before the sorting improvement."""
+    sorted_names = sorted(catalogue)
+    output = (
+        "Monster Card Catalogue\n"
+        + "Sorted by: Name (A to Z)\n"
+        + "-" * 75 + "\n"
+        + f"{'Name':<15}{'Strength':<12}{'Speed':<10}{'Stealth':<10}{'Cunning':<10}{'Total':<10}\n"
+        + "-" * 75 + "\n"
+    )
+    for card_name in sorted_names:
+        stats = catalogue[card_name]
+        total_stats = sum(stats.values())
+        output += (
+            f"{card_name:<15}"
+            f"{stats['strength']:<12}"
+            f"{stats['speed']:<10}"
+            f"{stats['stealth']:<10}"
+            f"{stats['cunning']:<10}"
+            f"{total_stats:<10}\n"
+        )
+    return output
+
 # -----------------------------------------------------------------------------
 # Validation functions
 # -----------------------------------------------------------------------------
@@ -187,8 +210,8 @@ def delete_card(catalogue):
         eg.msgbox("Card deleted successfully.", "Card Deleted")
 
 def print_catalogue(catalogue):
-    """Placeholder before Print Full Catalogue was developed."""
-    eg.msgbox("Print full catalogue has not been developed yet.", "Not Developed")
+    """Testing version: format the catalogue and show it in a text box."""
+    eg.textbox("Formatted catalogue preview:", "Catalogue Preview", format_catalogue(catalogue))
 
 def show_main_menu():
     """Show the main menu and return the user selection."""
