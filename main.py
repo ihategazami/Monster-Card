@@ -210,8 +210,11 @@ def delete_card(catalogue):
         eg.msgbox("Card deleted successfully.", "Card Deleted")
 
 def print_catalogue(catalogue):
-    """Testing version: format the catalogue and show it in a text box."""
-    eg.textbox("Formatted catalogue preview:", "Catalogue Preview", format_catalogue(catalogue))
+    """Print version: print the alphabetical catalogue to the Python console."""
+    print()
+    print(format_catalogue(catalogue))
+    print()
+    eg.msgbox("The full catalogue has been printed to the Python console.", "Printed")
 
 def show_main_menu():
     """Show the main menu and return the user selection."""
