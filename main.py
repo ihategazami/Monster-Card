@@ -210,18 +210,11 @@ def delete_card(catalogue):
         eg.msgbox("Card deleted successfully.", "Card Deleted")
 
 def print_catalogue(catalogue):
-    """Trial version: use tabulate for a table-style output."""
-    try:
-        from tabulate import tabulate
-    except ImportError:
-        eg.msgbox("This trial needs the tabulate library, so it is less accessible.", "Missing Library")
-        return
-    rows = []
-    for name in sorted(catalogue):
-        stats = catalogue[name]
-        rows.append([name, stats["strength"], stats["speed"], stats["stealth"], stats["cunning"], sum(stats.values())])
-    print(tabulate(rows, headers=["Name", "Strength", "Speed", "Stealth", "Cunning", "Total"], tablefmt="grid"))
-    eg.msgbox("The catalogue has been printed using tabulate.", "Printed")
+    """Selected trial version: normal Python formatting without external libraries."""
+    print()
+    print(format_catalogue(catalogue))
+    print()
+    eg.msgbox("The full catalogue has been printed to the Python console.", "Printed")
 
 def show_main_menu():
     """Show the main menu and return the user selection."""
