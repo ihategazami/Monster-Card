@@ -229,10 +229,8 @@ def main():
     while True:
         choice = show_main_menu()
         if choice == EXIT_OPTION:
-            eg.msgbox("Exit option selected. Exit function is being developed.", "Exit Test")
-            # The program returns to the menu because the real exit behaviour
-            # has not been completed yet.
-            continue
+            # Trial TWO: exit immediately without asking for confirmation.
+            break
         elif choice == ADD_OPTION:
             add_card(catalogue)
         elif choice == SEARCH_OPTION:
@@ -244,6 +242,7 @@ def main():
         elif choice is None:
             # Before end user testing #2, closing the window did not exit the loop.
             pass
+    eg.msgbox("Goodbye.", "Exit")
 
 if __name__ == "__main__":
     main()
