@@ -243,8 +243,7 @@ def main():
                 continue
             if exit_choice == "Yes":
                 eg.msgbox("Goodbye.", "Exit")
-                # The goodbye message works, but the final break is added in the next version.
-                continue
+                break
         elif choice == ADD_OPTION:
             add_card(catalogue)
         elif choice == SEARCH_OPTION:
