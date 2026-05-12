@@ -240,10 +240,11 @@ def main():
         if choice == EXIT_OPTION:
             exit_choice = confirm_exit()
             if exit_choice == "No" or exit_choice is None:
-                # If the user does not confirm, the loop continues and the main menu appears again.
                 continue
-            eg.msgbox("Exit confirmed. Goodbye behaviour will be added next.", "Exit Test")
-            continue
+            if exit_choice == "Yes":
+                eg.msgbox("Goodbye.", "Exit")
+                # The goodbye message works, but the final break is added in the next version.
+                continue
         elif choice == ADD_OPTION:
             add_card(catalogue)
         elif choice == SEARCH_OPTION:
