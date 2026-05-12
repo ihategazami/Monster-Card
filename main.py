@@ -21,6 +21,19 @@ EDIT_MENU = [
     "Edit cunning",
     "Finish editing"
 ]
+SORT_MENU = [
+    "Name (A to Z)",
+    "Strength (highest first)",
+    "Strength (lowest first)",
+    "Speed (highest first)",
+    "Speed (lowest first)",
+    "Stealth (highest first)",
+    "Stealth (lowest first)",
+    "Cunning (highest first)",
+    "Cunning (lowest first)",
+    "Total stats (highest first)",
+    "Total stats (lowest first)"
+]
 
 # -----------------------------------------------------------------------------
 # Catalogue setup and formatting
@@ -62,12 +75,34 @@ def format_card(card_name, card_stats):
         f"Cunning: {card_stats['cunning']}"
     )
 
-def format_catalogue(catalogue):
-    """Format the catalogue alphabetically before the sorting improvement."""
-    sorted_names = sorted(catalogue)
+def format_catalogue(catalogue, sort_choice="Name (A to Z)"):
+    """Format the catalogue and allow sorting after end user testing #1."""
+    if sort_choice == "Strength (highest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["strength"], reverse=True)
+    elif sort_choice == "Strength (lowest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["strength"])
+    elif sort_choice == "Speed (highest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["speed"], reverse=True)
+    elif sort_choice == "Speed (lowest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["speed"])
+    elif sort_choice == "Stealth (highest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["stealth"], reverse=True)
+    elif sort_choice == "Stealth (lowest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["stealth"])
+    elif sort_choice == "Cunning (highest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["cunning"], reverse=True)
+    elif sort_choice == "Cunning (lowest first)":
+        sorted_names = sorted(catalogue, key=lambda name: catalogue[name]["cunning"])
+    elif sort_choice == "Total stats (highest first)":
+        sorted_names = sorted(catalogue, key=lambda name: sum(catalogue[name].values()), reverse=True)
+    elif sort_choice == "Total stats (lowest first)":
+        sorted_names = sorted(catalogue, key=lambda name: sum(catalogue[name].values()))
+    else:
+        sorted_names = sorted(catalogue)
+
     output = (
         "Monster Card Catalogue\n"
-        + "Sorted by: Name (A to Z)\n"
+        + f"Sorted by: {sort_choice}\n"
         + "-" * 75 + "\n"
         + f"{'Name':<15}{'Strength':<12}{'Speed':<10}{'Stealth':<10}{'Cunning':<10}{'Total':<10}\n"
         + "-" * 75 + "\n"
@@ -210,9 +245,12 @@ def delete_card(catalogue):
         eg.msgbox("Card deleted successfully.", "Card Deleted")
 
 def print_catalogue(catalogue):
-    """Selected trial version: normal Python formatting without external libraries."""
+    """After end user testing #1: let the user choose the catalogue sort order."""
+    sort_choice = eg.choicebox("Choose how the catalogue should be sorted:", "Sort Catalogue", SORT_MENU)
+    if sort_choice is None:
+        return
     print()
-    print(format_catalogue(catalogue))
+    print(format_catalogue(catalogue, sort_choice))
     print()
     eg.msgbox("The full catalogue has been printed to the Python console.", "Printed")
 
