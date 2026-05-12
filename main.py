@@ -239,9 +239,10 @@ def main():
         choice = show_main_menu()
         if choice == EXIT_OPTION:
             exit_choice = confirm_exit()
-            eg.msgbox(f"Exit confirmation selected: {exit_choice}", "Exit Confirmation Test")
-            # This version only tests that the confirmation box appears.
-            # The Yes and No behaviours are developed in later versions.
+            if exit_choice == "No" or exit_choice is None:
+                # If the user does not confirm, the loop continues and the main menu appears again.
+                continue
+            eg.msgbox("Exit confirmed. Goodbye behaviour will be added next.", "Exit Test")
             continue
         elif choice == ADD_OPTION:
             add_card(catalogue)
@@ -257,4 +258,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
