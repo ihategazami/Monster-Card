@@ -221,13 +221,9 @@ def show_main_menu():
     return eg.buttonbox("Choose an option:", "Monster Card Catalogue", MAIN_MENU)
 
 def confirm_exit():
-    """Ask the user to confirm whether they want to exit the program."""
-    return eg.buttonbox(
-        "Are you sure you want to exit?",
-        "Confirm Exit",
-        ["Yes", "No"]
-    )
-
+    """Ask for confirmation before exiting."""
+    choice = eg.buttonbox("Are you sure you want to exit?", "Confirm Exit", ["Yes", "No"])
+    return choice == "Yes"
 
 # -----------------------------------------------------------------------------
 # Main loop
@@ -238,11 +234,7 @@ def main():
     while True:
         choice = show_main_menu()
         if choice == EXIT_OPTION:
-            exit_choice = confirm_exit()
-            if exit_choice == "No" or exit_choice is None:
-                continue
-            if exit_choice == "Yes":
-                eg.msgbox("Goodbye.", "Exit")
+            if confirm_exit():
                 break
         elif choice == ADD_OPTION:
             add_card(catalogue)
@@ -255,6 +247,7 @@ def main():
         elif choice is None:
             # Before end user testing #2, closing the window did not exit the loop.
             pass
+    eg.msgbox("Goodbye.", "Exit")
 
 if __name__ == "__main__":
     main()
