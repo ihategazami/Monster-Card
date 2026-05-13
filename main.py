@@ -271,7 +271,7 @@ def main():
     eg.msgbox("Welcome to the Monster Card Catalogue.", "Welcome")
     while True:
         choice = show_main_menu()
-        if choice == EXIT_OPTION:
+        if choice is None or choice == EXIT_OPTION:
             if confirm_exit():
                 break
         elif choice == ADD_OPTION:
@@ -282,9 +282,6 @@ def main():
             delete_card(catalogue)
         elif choice == PRINT_OPTION:
             print_catalogue(catalogue)
-        elif choice is None:
-            # Before end user testing #2, closing the window did not exit the loop.
-            pass
     eg.msgbox("Goodbye.", "Exit")
 
 if __name__ == "__main__":
