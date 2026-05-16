@@ -5,6 +5,7 @@ import easygui as eg
 # -----------------------------------------------------------------------------
 MIN_STAT = 1
 MAX_STAT = 25
+MAX_NAME_LENGTH = 15
 STATS = ["strength", "speed", "stealth", "cunning"]
 
 ADD_OPTION = 'Add new monster card'
@@ -126,12 +127,15 @@ def format_catalogue(catalogue, sort_choice="Name (A to Z)"):
 def get_valid_name(catalogue, old_name=None):
     """Ask the user for a monster name and validate it as development progressed."""
     while True:
-        name = eg.enterbox('Enter the monster name:', "Monster Name")
+        name = eg.enterbox('Enter the monster name:\\nMaximum 15 characters.', "Monster Name")
         if name is None:
             return None
         name = clean_name(name)
         if name == "":
             eg.msgbox("Name cannot be blank.", "Invalid Name")
+            continue
+        if len(name) > MAX_NAME_LENGTH:
+            eg.msgbox(f"Name cannot be longer than {MAX_NAME_LENGTH} characters.", "Invalid Name")
             continue
         existing_card = find_card(catalogue, name)
         if existing_card is not None and existing_card != old_name:
