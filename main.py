@@ -9,6 +9,7 @@ Monster Card Catalogue
 Lucas Kang (kangl@middleton.school.nz)
 '''
 
+import easygui as eg
 
 # Allows the EasyGUI X button to close the active pop-up safely.
 def enable_easygui_window_close():
